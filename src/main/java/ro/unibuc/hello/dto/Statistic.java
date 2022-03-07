@@ -4,15 +4,15 @@ public class Statistic {
 
     private final String title;
     private final String description;
-    private final long statistic;
+    private final float statistic;
 
-    public Statistic(String title, String description, long statistic) {
+    public Statistic(String title, String description, float statistic) {
         this.title = title;
         this.description = description;
         this.statistic = statistic;
     }
 
-    public long getStatistic() {
+    public float getStatistic() {
         return statistic;
     }
 

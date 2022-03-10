@@ -136,8 +136,6 @@ public class HelloWorldController {
                     noOfDays.updateAndGet(v -> v + 1);
                 }
             });
-
-
         } else {
             return "Please select a currency for the weekly report.";
         }
@@ -145,6 +143,83 @@ public class HelloWorldController {
         weeklyAvg.updateAndGet(v -> v / noOfDays.get());
 
         return String.format("%.4f", weeklyAvg.get().floatValue());
+    }
+
+    @GetMapping("/montly-update")
+    @ResponseBody
+    public String getMontlyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+            String url = "http://localhost:8080/update";
+            RestTemplate restTemplate = new RestTemplate();
+            String updated = restTemplate.getForObject(url, String.class);
+        }
+
+        AtomicReference<Double> montlyAvg = new AtomicReference<>(0.0);
+        AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
+
+        if (importantCurrencies.contains(currency)) {
+
+            List<String> outputInterval = getTimeInterval(30);
+
+            outputInterval.forEach((day) -> {
+                StatisticEntity statisticEntity = statisticRepository.findByTitle("Conversion_" + day + "_" + currency);
+
+                if (statisticEntity == null) {
+//
+                } else {
+                    montlyAvg.updateAndGet(v -> v + statisticEntity.statistic);
+                    noOfDays.updateAndGet(v -> v + 1);
+                }
+            });
+        } else {
+            return "Please select a currency for the montly report.";
+        }
+
+        montlyAvg.updateAndGet(v -> v / noOfDays.get());
+
+        return String.format("%.4f", montlyAvg.get().floatValue());
+    }
+
+
+    @GetMapping("/daily-update")
+    @ResponseBody
+    public String getDailyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+            String url = "http://localhost:8080/update";
+            RestTemplate restTemplate = new RestTemplate();
+            String updated = restTemplate.getForObject(url, String.class);
+        }
+
+        AtomicReference<Double> dailyAvg = new AtomicReference<>(0.0);
+        AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
+
+        if (importantCurrencies.contains(currency)) {
+
+            List<String> outputInterval = getTimeInterval(2);
+
+            outputInterval.forEach((day) -> {
+                StatisticEntity statisticEntity = statisticRepository.findByTitle("Conversion_" + day + "_" + currency);
+
+                if (statisticEntity == null) {
+//
+                } else {
+                    dailyAvg.updateAndGet(v -> v + statisticEntity.statistic);
+                    noOfDays.updateAndGet(v -> v + 1);
+                }
+            });
+        } else {
+            return "Please select a currency for the daily report.";
+        }
+
+        dailyAvg.updateAndGet(v -> v / noOfDays.get());
+
+        return String.format("%.4f", dailyAvg.get().floatValue());
     }
 
     private static List<String> getTimeInterval(Integer numberOfDays) {

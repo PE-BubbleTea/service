@@ -74,11 +74,11 @@ public class ApplicationService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> weeklyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
@@ -111,11 +111,11 @@ public class ApplicationService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> montlyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
@@ -148,11 +148,11 @@ public class ApplicationService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> dailyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);

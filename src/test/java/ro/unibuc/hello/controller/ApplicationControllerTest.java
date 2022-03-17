@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import ro.unibuc.hello.dto.Greeting;
+import ro.unibuc.hello.dto.Statistic;
 import ro.unibuc.hello.exception.EntityNotFoundException;
 import ro.unibuc.hello.service.ApplicationService;
 
@@ -60,4 +61,42 @@ public class ApplicationControllerTest {
         // Assert
         Assertions.assertEquals(result.getResponse().getContentAsString(), objectMapper.writeValueAsString(greeting));
     }
+
+    @Test
+    void test_weekly_update() throws Exception {
+        // Arrange
+        Statistic statistic = new Statistic("RON to EUR", "Weekly statistic", (float) 0.20);
+
+        when(applicationService.getWeeklyUpdate(any())).thenReturn(statistic);
+
+        // Act
+        MvcResult result = mockMvc.perform(get("/weekly-update?currency=EUR")
+                        .content(objectMapper.writeValueAsString(statistic))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Assert
+        Assertions.assertEquals(result.getResponse().getContentAsString(), objectMapper.writeValueAsString(statistic));
+    }
+
+    @Test
+    void test_daily_update() throws Exception {
+        // Arrange
+        Statistic statistic = new Statistic("RON to EUR", "Daily statistic", (float) 0.20);
+
+        when(applicationService.getWeeklyUpdate(any())).thenReturn(statistic);
+
+        // Act
+        MvcResult result = mockMvc.perform(get("/daily-update?currency=EUR")
+                        .content(objectMapper.writeValueAsString(statistic))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        // Assert
+        Assertions.assertEquals(result.getResponse().getContentAsString(), objectMapper.writeValueAsString(statistic));
+    }
+
+
 }

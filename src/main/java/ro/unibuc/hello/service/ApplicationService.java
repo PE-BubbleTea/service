@@ -70,15 +70,15 @@ public class ApplicationService {
     }
 
 
-    public String getWeeklyUpdate(String currency) {
+    public Statistic getWeeklyUpdate(String currency) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> weeklyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
@@ -98,24 +98,24 @@ public class ApplicationService {
                 }
             });
         } else {
-            return "Please select a currency for the weekly report.";
+            return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
         weeklyAvg.updateAndGet(v -> v / noOfDays.get());
 
-        return String.format("%.4f", weeklyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Weekly statistic", weeklyAvg.get().floatValue());
     }
 
 
-    public String getMontlyUpdate(String currency) {
+    public Statistic getMontlyUpdate(String currency) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> montlyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
@@ -135,24 +135,24 @@ public class ApplicationService {
                 }
             });
         } else {
-            return "Please select a currency for the montly report.";
+            return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
         montlyAvg.updateAndGet(v -> v / noOfDays.get());
 
-        return String.format("%.4f", montlyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Montly statistic", montlyAvg.get().floatValue());
     }
 
 
-    public String getDailyUpdate(String currency) {
+    public Statistic getDailyUpdate(String currency) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
-            String url = "http://localhost:8080/update";
-            RestTemplate restTemplate = new RestTemplate();
-            String updated = restTemplate.getForObject(url, String.class);
-        }
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//            String url = "http://localhost:8080/update";
+//            RestTemplate restTemplate = new RestTemplate();
+//            String updated = restTemplate.getForObject(url, String.class);
+//        }
 
         AtomicReference<Double> dailyAvg = new AtomicReference<>(0.0);
         AtomicReference<Integer> noOfDays = new AtomicReference<>(0);
@@ -172,12 +172,12 @@ public class ApplicationService {
                 }
             });
         } else {
-            return "Please select a currency for the daily report.";
+            return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
         dailyAvg.updateAndGet(v -> v / noOfDays.get());
 
-        return String.format("%.4f", dailyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Daily statistic", dailyAvg.get().floatValue());
     }
 
     private static List<String> getTimeInterval(Integer numberOfDays) {

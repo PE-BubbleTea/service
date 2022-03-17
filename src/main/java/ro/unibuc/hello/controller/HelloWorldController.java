@@ -63,20 +63,20 @@ public class HelloWorldController {
 
     @GetMapping("/weekly-update")
     @ResponseBody
-    public String getWeeklyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
+    public Statistic getWeeklyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
         return applicationService.getWeeklyUpdate(currency);
     }
 
     @GetMapping("/montly-update")
     @ResponseBody
-    public String getMontlyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
+    public Statistic getMontlyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
         return applicationService.getMontlyUpdate(currency);
     }
 
 
     @GetMapping("/daily-update")
     @ResponseBody
-    public String getDailyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
+    public Statistic getDailyUpdate(@RequestParam(name="currency", required=false, defaultValue="EUR") String currency) {
         return applicationService.getDailyUpdate(currency);
     }
 }

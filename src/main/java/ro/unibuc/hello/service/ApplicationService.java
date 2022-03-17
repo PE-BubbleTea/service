@@ -140,7 +140,7 @@ public class ApplicationService {
 
         montlyAvg.updateAndGet(v -> v / noOfDays.get());
 
-        return new Statistic("RON to " + currency, "Weekly statistic", montlyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Montly statistic", montlyAvg.get().floatValue());
     }
 
 
@@ -177,7 +177,7 @@ public class ApplicationService {
 
         dailyAvg.updateAndGet(v -> v / noOfDays.get());
 
-        return new Statistic("RON to " + currency, "Weekly statistic", dailyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Daily statistic", dailyAvg.get().floatValue());
     }
 
     private static List<String> getTimeInterval(Integer numberOfDays) {

@@ -7,16 +7,19 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.unibuc.hello.data.InformationEntity;
 import ro.unibuc.hello.data.InformationRepository;
+import ro.unibuc.hello.data.StatisticRepository;
 import ro.unibuc.hello.dto.Greeting;
 import ro.unibuc.hello.dto.Statistic;
 import ro.unibuc.hello.exception.EntityNotFoundException;
+
+import java.text.DecimalFormat;
 
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class ApplicationServiceTest {
     @Mock
-    InformationRepository mockInformationRepository;
+    StatisticRepository mockStatisticRepository;
 
     @InjectMocks
     ApplicationService applicationService = new ApplicationService();
@@ -42,10 +45,12 @@ public class ApplicationServiceTest {
         // Act
         Statistic statistic = applicationService.getWeeklyUpdate(currency);
 
+        DecimalFormat df = new DecimalFormat("#.###");
+
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
         Assertions.assertEquals("Weekly statistic", statistic.getDescription());
-        Assertions.assertEquals(0.21, statistic.getStatistic());
+        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
     }
 
     @Test
@@ -56,10 +61,12 @@ public class ApplicationServiceTest {
         // Act
         Statistic statistic = applicationService.getWeeklyUpdate(currency);
 
+        DecimalFormat df = new DecimalFormat("#.###");
+
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Weekly statistic", statistic.getDescription());
-        Assertions.assertEquals(0.20, statistic.getStatistic());
+        Assertions.assertEquals("0.20", df.format(statistic.getStatistic()));
     }
 
     @Test
@@ -68,12 +75,14 @@ public class ApplicationServiceTest {
         String currency = "USD";
 
         // Act
-        Statistic statistic = applicationService.getWeeklyUpdate(currency);
+        Statistic statistic = applicationService.getDailyUpdate(currency);
+
+        DecimalFormat df = new DecimalFormat("#.###");
 
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
-        Assertions.assertEquals(0.20, statistic.getStatistic());
+        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
     }
 
     @Test
@@ -82,11 +91,13 @@ public class ApplicationServiceTest {
         String currency = "EUR";
 
         // Act
-        Statistic statistic = applicationService.getWeeklyUpdate(currency);
+        Statistic statistic = applicationService.getDailyUpdate(currency);
+
+        DecimalFormat df = new DecimalFormat("#.###");
 
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
-        Assertions.assertEquals(0.20, statistic.getStatistic());
+        Assertions.assertEquals("0.20", df.format(statistic.getStatistic()));
     }
 }

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import org.springframework.web.client.RestTemplate;
-import ro.unibuc.hello.data.InformationRepository;
 import ro.unibuc.hello.data.StatisticEntity;
 import ro.unibuc.hello.data.StatisticRepository;
 import ro.unibuc.hello.dto.Currency;
@@ -22,19 +21,19 @@ import java.util.concurrent.atomic.AtomicReference;
 public class ApplicationService {
     List<String> importantCurrencies = List.of("EUR", "USD", "CHF");
 
-    @Autowired
-    private InformationRepository informationRepository;
+//    @Autowired
+//    private InformationRepository informationRepository;
 
     @Autowired
     private StatisticRepository statisticRepository;
 
-    private static final String helloTemplate = "Hello, %s!";
-    private static final String informationTemplate = "%s : %s!";
-    private final AtomicLong counter = new AtomicLong();
+//    private static final String helloTemplate = "Hello, %s!";
+//    private static final String informationTemplate = "%s : %s!";
+//    private final AtomicLong counter = new AtomicLong();
 
-    public Greeting sayHello(String name) {
-        return new Greeting(counter.incrementAndGet(), String.format(helloTemplate, name));
-    }
+//    public Greeting sayHello(String name) {
+//        return new Greeting(counter.incrementAndGet(), String.format(helloTemplate, name));
+//    }
 
     public Statistic showStatistic(String title) {
         StatisticEntity entity = statisticRepository.findByTitle(title);
@@ -74,7 +73,7 @@ public class ApplicationService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
 
-//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR") == null) {
+//        if (statisticRepository.findByTitle("Conversion_" + dateFormat.format(date) + "_EUR" ) == null) {
 //            String url = "http://localhost:8080/update";
 //            RestTemplate restTemplate = new RestTemplate();
 //            String updated = restTemplate.getForObject(url, String.class);
@@ -88,10 +87,12 @@ public class ApplicationService {
             List<String> outputInterval = getTimeInterval(7);
 
             outputInterval.forEach((day) -> {
+
                 StatisticEntity statisticEntity = statisticRepository.findByTitle("Conversion_" + day + "_" + currency);
 
                 if (statisticEntity == null) {
 //
+                    System.out.println("Conversion_" + day + "_" + currency);
                 } else {
                     weeklyAvg.updateAndGet(v -> v + statisticEntity.statistic);
                     noOfDays.updateAndGet(v -> v + 1);
@@ -101,7 +102,9 @@ public class ApplicationService {
             return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
-        weeklyAvg.updateAndGet(v -> v / noOfDays.get());
+        if (noOfDays.get() != 0) {
+            weeklyAvg.updateAndGet(v -> v / noOfDays.get());
+        }
 
         return new Statistic("RON to " + currency, "Weekly statistic", weeklyAvg.get().floatValue());
     }
@@ -138,7 +141,9 @@ public class ApplicationService {
             return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
-        montlyAvg.updateAndGet(v -> v / noOfDays.get());
+        if (noOfDays.get() != 0) {
+            montlyAvg.updateAndGet(v -> v / noOfDays.get());
+        }
 
         return new Statistic("RON to " + currency, "Montly statistic", montlyAvg.get().floatValue());
     }
@@ -175,7 +180,9 @@ public class ApplicationService {
             return new Statistic("RON to " + currency, "Conversion not available", 0);
         }
 
-        dailyAvg.updateAndGet(v -> v / noOfDays.get());
+        if (noOfDays.get() != 0) {
+            dailyAvg.updateAndGet(v -> v / noOfDays.get());
+        }
 
         return new Statistic("RON to " + currency, "Daily statistic", dailyAvg.get().floatValue());
     }

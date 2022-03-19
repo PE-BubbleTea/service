@@ -12,6 +12,7 @@ import ro.unibuc.hello.exception.EntityNotFoundException;
 
 import java.text.DecimalFormat;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -38,6 +39,7 @@ public class ApplicationServiceTest {
     @Test
     void test_weekly_statistic_returns_statistic_usd() {
         // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to USD", "Weekly statistic", (float) 0.21));
         String currency = "USD";
 
         // Act
@@ -48,12 +50,13 @@ public class ApplicationServiceTest {
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
         Assertions.assertEquals("Weekly statistic", statistic.getDescription());
-//        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
+        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
     }
 
     @Test
     void test_weekly_statistic_returns_statistic_eur() {
         // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to EUR", "Weekly statistic", (float) 0.2));
         String currency = "EUR";
 
         // Act
@@ -64,12 +67,30 @@ public class ApplicationServiceTest {
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Weekly statistic", statistic.getDescription());
-//        Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
+        Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
+    }
+
+    @Test
+    void test_weekly_statistic_returns_statistic_chf() {
+        // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to CHF", "Weekly statistic", (float) 0.2));
+        String currency = "CHF";
+
+        // Act
+        Statistic statistic = applicationService.getWeeklyUpdate(currency);
+
+        DecimalFormat df = new DecimalFormat("#.##");
+
+        // Assert
+        Assertions.assertEquals("RON to CHF", statistic.getTitle());
+        Assertions.assertEquals("Weekly statistic", statistic.getDescription());
+        Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
     }
 
     @Test
     void test_daily_statistic_returns_statistic_usd() {
         // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to EUR", "Daily statistic", (float) 0.21));
         String currency = "USD";
 
         // Act
@@ -80,12 +101,13 @@ public class ApplicationServiceTest {
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
-//        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
+        Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
     }
 
     @Test
     void test_daily_statistic_returns_statistic_eur() {
         // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to USD", "Daily statistic", (float) 0.2));
         String currency = "EUR";
 
         // Act
@@ -93,10 +115,26 @@ public class ApplicationServiceTest {
 
         DecimalFormat df = new DecimalFormat("#.###");
 
-//        System.out.println(statistic.getStatistic());
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
-//        Assertions.assertEquals("0.20", df.format(statistic.getStatistic()));
+        Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
+    }
+
+    @Test
+    void test_daily_statistic_returns_statistic_chf() {
+        // Arrange
+        when(mockStatisticRepository.findByTitle(any())).thenReturn(new StatisticEntity("RON to CHF", "Daily statistic", (float) 0.2));
+        String currency = "CHF";
+
+        // Act
+        Statistic statistic = applicationService.getDailyUpdate(currency);
+
+        DecimalFormat df = new DecimalFormat("#.###");
+
+        // Assert
+        Assertions.assertEquals("RON to CHF", statistic.getTitle());
+        Assertions.assertEquals("Daily statistic", statistic.getDescription());
+        Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
     }
 }

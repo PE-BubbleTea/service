@@ -13,18 +13,18 @@ import javax.annotation.PostConstruct;
 @EnableMongoRepositories(basePackageClasses = InformationRepository.class)
 public class HelloApplication {
 
-	@Autowired
-	private InformationRepository informationRepository;
-
-	public static void main(String[] args) {
-		SpringApplication.run(HelloApplication.class, args);
-	}
-
-	@PostConstruct
-	public void runAfterObjectCreated() {
-		informationRepository.deleteAll();
-		informationRepository.save(new InformationEntity("Overview",
-				"This is an example of using a data storage engine running separately from our applications server"));
-	}
+//	@Autowired
+//	private InformationRepository informationRepository;
+//
+//	public static void main(String[] args) {
+//		SpringApplication.run(HelloApplication.class, args);
+//	}
+//
+//	@PostConstruct
+//	public void runAfterObjectCreated() {
+//		informationRepository.deleteAll();
+//		informationRepository.save(new InformationEntity("Overview",
+//				"This is an example of using a data storage engine running separately from our applications server"));
+//	}
 
 }

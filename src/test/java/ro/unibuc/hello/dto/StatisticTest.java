@@ -23,8 +23,8 @@ public class StatisticTest {
 
     @Test
     void test_statistic(){
-        DecimalFormat df = new DecimalFormat("#.###");
+        DecimalFormat df = new DecimalFormat("#.##");
 
-        Assertions.assertEquals("0.20", df.format(myStatistic.getStatistic()));
+        Assertions.assertEquals("0.2", df.format(myStatistic.getStatistic()));
     }
 }

@@ -10,6 +10,7 @@ import ro.unibuc.hello.data.StatisticRepository;
 import ro.unibuc.hello.dto.Currency;
 import ro.unibuc.hello.dto.Greeting;
 import ro.unibuc.hello.dto.Statistic;
+import ro.unibuc.hello.exception.EntityNotFoundException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -40,6 +41,15 @@ public class ApplicationService {
         return new Statistic(String.format("Statistic type: %s", title), String.format("Statistic description: %s", entity.description), entity.statistic);
     }
 
+    public Statistic buildStatisticFromInfo(String title) throws EntityNotFoundException {
+        StatisticEntity statisticEntity = statisticRepository.findByTitle(title);
+
+        if (statisticEntity == null) {
+            throw new EntityNotFoundException(title);
+        }
+
+        return new Statistic(statisticEntity.title, statisticEntity.description, statisticEntity.statistic);
+    }
 
     public Currency updateApiData() {
         String url = "https://open.er-api.com/v6/latest/RON";

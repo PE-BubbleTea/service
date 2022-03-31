@@ -48,3 +48,6 @@ asciidoctor {
 	inputs.dir snippetsDir
 	dependsOn test
 }
+
+bootJar.enabled = false
+

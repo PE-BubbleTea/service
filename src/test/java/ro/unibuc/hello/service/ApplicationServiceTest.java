@@ -2,9 +2,11 @@ package ro.unibuc.hello.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import ro.unibuc.hello.data.StatisticRepository;
 import ro.unibuc.hello.data.StatisticEntity;
 import ro.unibuc.hello.dto.Statistic;
@@ -15,8 +17,8 @@ import java.text.DecimalFormat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
-public class ApplicationServiceTest {
+@ExtendWith(SpringExtension.class)
+class ApplicationServiceTest {
     @Mock
     StatisticRepository mockStatisticRepository;
 

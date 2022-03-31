@@ -16,9 +16,9 @@ public class HelloApplication {
 //	@Autowired
 //	private InformationRepository informationRepository;
 //
-//	public static void main(String[] args) {
-//		SpringApplication.run(HelloApplication.class, args);
-//	}
+	public static void main(String[] args) {
+		SpringApplication.run(HelloApplication.class, args);
+	}
 //
 //	@PostConstruct
 //	public void runAfterObjectCreated() {

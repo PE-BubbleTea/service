@@ -3,7 +3,7 @@ pipeline {
     environment {
         GITHUB_TOKEN = credentials("github_token")
     }
-git
+
     stages {
         stage('Build & Test') {
            steps {

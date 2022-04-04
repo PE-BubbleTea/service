@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        DOCKER_PASSWORD = credentials("docker_password")
         GITHUB_TOKEN = credentials("github_token")
     }
 
@@ -20,7 +19,7 @@ pipeline {
                     MINOR_VERSION = sh([script: 'git tag | cut -d . -f 2', returnStdout: true]).trim()
                     PATCH_VERSION = sh([script: 'git tag | cut -d . -f 3', returnStdout: true]).trim()
                 }
-                sh "docker login docker.io -u roki1708 -p $DOCKER_PASSWORD"
+                sh "docker login docker.io -u roki1708 -p roki17Docker"
                 sh "docker build -t roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION} ."
             }
         }

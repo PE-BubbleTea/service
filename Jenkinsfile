@@ -26,13 +26,13 @@ pipeline {
 
         stage('Push image') {
             steps {
-                script {
+//                 script {
                     sh([script: 'git fetch --tag', returnStdout: true]).trim()
                     env.MAJOR_VERSION = sh([script: 'git tag | sort --version-sort | tail -1 | cut -d . -f 1', returnStdout: true]).trim()
                     env.MINOR_VERSION = sh([script: 'git tag | sort --version-sort | tail -1 | cut -d . -f 2', returnStdout: true]).trim()
                     env.PATCH_VERSION = sh([script: 'git tag | sort --version-sort | tail -1 | cut -d . -f 3', returnStdout: true]).trim()
                     env.IMAGE_TAG = "${env.MAJOR_VERSION}.\$((${env.MINOR_VERSION} + 1)).${env.PATCH_VERSION}"
-                }
+//                 }
                 sh "docker login docker.io -u roki1708 -p roki17Docker"
                 sh "docker push roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION}"
 //                 sh "git tag ${env.IMAGE_TAG}"

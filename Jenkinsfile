@@ -36,6 +36,7 @@ pipeline {
                 }
                 sh "docker login docker.io -u roki1708 -p roki17Docker"
                 sh "docker push roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION}"
+
                 sh "git tag ${env.IMAGE_TAG}"
                 sh "git push https://$GITHUB_TOKEN@github.com/PE-BubbleTea/service.git ${env.IMAGE_TAG}"
             }

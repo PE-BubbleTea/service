@@ -12,20 +12,20 @@ pipeline {
            }
         }
 
-        stage('Tag image') {
-            steps {
-                script {
-                    GIT_TAG = sh([script: 'git fetch --tag && git tag', returnStdout: true]).trim()
-                    MAJOR_VERSION = sh([script: 'git tag | cut -d . -f 1', returnStdout: true]).trim()
-                    MINOR_VERSION = sh([script: 'git tag | cut -d . -f 2', returnStdout: true]).trim()
-                    PATCH_VERSION = sh([script: 'git tag | cut -d . -f 3', returnStdout: true]).trim()
-                }
-                sh "docker login docker.io -u roki1708 -p roki17Docker"
-                sh "docker build -t roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION} ."
-            }
-        }
+//         stage('Tag image') {
+//             steps {
+//                 script {
+//                     GIT_TAG = sh([script: 'git fetch --tag && git tag', returnStdout: true]).trim()
+//                     MAJOR_VERSION = sh([script: 'git tag | cut -d . -f 1', returnStdout: true]).trim()
+//                     MINOR_VERSION = sh([script: 'git tag | cut -d . -f 2', returnStdout: true]).trim()
+//                     PATCH_VERSION = sh([script: 'git tag | cut -d . -f 3', returnStdout: true]).trim()
+//                 }
+//                 sh "docker login docker.io -u roki1708 -p roki17Docker"
+//
+//             }
+//         }
 
-        stage('Push image') {
+        stage('Tag & Push image') {
             steps {
                 script {
                     sh([script: 'git fetch --tag', returnStdout: true]).trim()
@@ -35,6 +35,7 @@ pipeline {
                     env.IMAGE_TAG = "${env.MAJOR_VERSION}.\$((${env.MINOR_VERSION} + 1)).${env.PATCH_VERSION}"
                 }
                 sh "docker login docker.io -u roki1708 -p roki17Docker"
+                sh "docker build -t roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION} ."
                 sh "docker push roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION}"
 
                 sh "git tag ${env.IMAGE_TAG}"

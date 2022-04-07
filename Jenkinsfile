@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    environment {
-        GITHUB_TOKEN = credentials("github_token")
-    }
+//     environment {
+//         GITHUB_TOKEN = credentials("github_token")
+//     }
 
     stages {
         stage('Build & Test') {

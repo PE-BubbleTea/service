@@ -60,7 +60,7 @@ class ApplicationServiceTestIT {
 //        Assertions.assertEquals("RON to USD", statistic.getDescription());
 //        Assertions.assertEquals((float) 0.0, statistic.getStatistic());
 //    }
-
+//
     @Test
     void test_buildWeeklyStatisticFromInfo_returnsWeeklyStatisticWithInfo() {
         // Arrange

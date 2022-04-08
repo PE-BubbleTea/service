@@ -31,7 +31,7 @@ class ApplicationServiceTestIT {
     @Autowired
     ApplicationService applicationService;
 
-    @Test
+   /* @Test
     void test_buildStatisticFromEurInfo_returnsStatisticWithEurInfo() {
         // Arrange
         String title = "Conversion_2022-03-17_EUR";
@@ -43,7 +43,7 @@ class ApplicationServiceTestIT {
         Assertions.assertEquals("RON to EUR", statistic.getDescription());
         Assertions.assertEquals((float) 0.2, statistic.getStatistic());
     }
-
+*/
 //    @Test
 //    void test_buildStatisticFromUsdInfo_returnsStatisticWithUsdInfo() {
 //        // Arrange
@@ -89,7 +89,7 @@ class ApplicationServiceTestIT {
         Assertions.assertEquals((float) 0.0, statistic.getStatistic());
     }
 
-    @Test
+   /* @Test
     void test_updateApiData_returnsCurrency() {
         // Arrange
 //        String currency = "EUR";
@@ -108,5 +108,5 @@ class ApplicationServiceTestIT {
         Assertions.assertNotNull(rates.get("EUR"));
         Assertions.assertNotNull(rates.get("USD"));
         Assertions.assertNotNull(rates.get("CHF"));
-    }
+    }*/
 }

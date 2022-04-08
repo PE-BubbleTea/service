@@ -35,7 +35,7 @@ pipeline {
                     env.IMAGE_TAG = "${env.MAJOR_VERSION}.\$((${env.MINOR_VERSION} + 1)).${env.PATCH_VERSION}"
                 }
 
-                sh "docker login docker.io -u roki1708 -p $DOCKER_PASSWORD"
+                sh "docker login docker.io -u roki1708 -p ${DOCKER_PASSWORD}"
                 sh "docker build -t roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION} ."
                 sh "docker push roki1708/hello-img:${MAJOR_VERSION}.\$((${MINOR_VERSION} + 1)).${PATCH_VERSION}"
 

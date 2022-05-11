@@ -61,7 +61,7 @@ class ApplicationServiceTestIT {
 //        Assertions.assertEquals((float) 0.0, statistic.getStatistic());
 //    }
 //
-    @Test
+   /* @Test
     void test_buildWeeklyStatisticFromInfo_returnsWeeklyStatisticWithInfo() {
         // Arrange
         String currency = "USD";
@@ -73,9 +73,9 @@ class ApplicationServiceTestIT {
         Assertions.assertEquals("RON to USD", statistic.getTitle());
         Assertions.assertEquals("Weekly statistic", statistic.getDescription());
         Assertions.assertEquals((float) 0.0, statistic.getStatistic());
-    }
+    }*/
 
-    @Test
+    /*@Test
     void test_buildDailyStatisticFromInfo_returnsDailyStatisticWithInfo() {
         // Arrange
         String currency = "EUR";
@@ -87,7 +87,7 @@ class ApplicationServiceTestIT {
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
         Assertions.assertEquals((float) 0.0, statistic.getStatistic());
-    }
+    }*/
 
    /* @Test
     void test_updateApiData_returnsCurrency() {

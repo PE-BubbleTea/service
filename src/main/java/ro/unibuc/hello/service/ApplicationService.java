@@ -116,7 +116,7 @@ public class ApplicationService {
             weeklyAvg.updateAndGet(v -> v / noOfDays.get());
         }
 
-        return new Statistic("RON to " + currency, "Weekly statistic", weeklyAvg.get().floatValue());
+        return new Statistic("RON to " + currency, "Weekly statistic 2", weeklyAvg.get().floatValue());
     }
 
 

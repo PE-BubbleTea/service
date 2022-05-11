@@ -51,7 +51,7 @@ class ApplicationServiceTest {
 
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
-        Assertions.assertEquals("Weekly statistic", statistic.getDescription());
+        Assertions.assertEquals("Weekly statistic 2", statistic.getDescription());
         Assertions.assertEquals("0.21", df.format(statistic.getStatistic()));
     }
 
@@ -68,7 +68,7 @@ class ApplicationServiceTest {
 
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
-        Assertions.assertEquals("Weekly statistic", statistic.getDescription());
+        Assertions.assertEquals("Weekly statistic 2", statistic.getDescription());
         Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
     }
 
@@ -85,7 +85,7 @@ class ApplicationServiceTest {
 
         // Assert
         Assertions.assertEquals("RON to CHF", statistic.getTitle());
-        Assertions.assertEquals("Weekly statistic", statistic.getDescription());
+        Assertions.assertEquals("Weekly statistic 2", statistic.getDescription());
         Assertions.assertEquals("0.2", df.format(statistic.getStatistic()));
     }
 

@@ -25,9 +25,9 @@ class ApplicationServiceTestIT {
     @Autowired
     StatisticRepository statisticRepository;
 
-//    @MockBean
-//    StatisticRepository mockStatisticRepository;
-
+////    @MockBean
+////    StatisticRepository mockStatisticRepository;
+//
     @Autowired
     ApplicationService applicationService;
 
@@ -42,6 +42,19 @@ class ApplicationServiceTestIT {
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getDescription());
         Assertions.assertEquals((float) 0.2, statistic.getStatistic());
+    }
+
+    @Test
+    void test_buildStatisticFromUsdInfo_returnsStatisticWithUsdInfo() {
+        // Arrange
+        String title = "Conversion_2022-03-17_USD";
+
+        // Act
+        Statistic statistic = applicationService.buildStatisticFromInfo(title);
+
+        // Assert
+        Assertions.assertEquals("RON to USD", statistic.getDescription());
+        Assertions.assertEquals((float) 0.22, statistic.getStatistic());
     }
 
 //    @Test
@@ -60,7 +73,7 @@ class ApplicationServiceTestIT {
 //        Assertions.assertEquals("RON to USD", statistic.getDescription());
 //        Assertions.assertEquals((float) 0.0, statistic.getStatistic());
 //    }
-//
+
     @Test
     void test_buildWeeklyStatisticFromInfo_returnsWeeklyStatisticWithInfo() {
         // Arrange
@@ -71,8 +84,8 @@ class ApplicationServiceTestIT {
 
         // Assert
         Assertions.assertEquals("RON to USD", statistic.getTitle());
-        Assertions.assertEquals("Weekly statistic", statistic.getDescription());
-        Assertions.assertEquals((float) 0.0, statistic.getStatistic());
+        Assertions.assertEquals("Weekly statistic 2", statistic.getDescription());
+        Assertions.assertEquals((float) 0.21, statistic.getStatistic());
     }
 
     @Test
@@ -86,7 +99,21 @@ class ApplicationServiceTestIT {
         // Assert
         Assertions.assertEquals("RON to EUR", statistic.getTitle());
         Assertions.assertEquals("Daily statistic", statistic.getDescription());
-        Assertions.assertEquals((float) 0.0, statistic.getStatistic());
+        Assertions.assertEquals((float) 0.2, statistic.getStatistic());
+    }
+
+    @Test
+    void test_buildMonthlyStatisticFromInfo_returnsMonthlyStatisticWithInfo() {
+        // Arrange
+        String currency = "EUR";
+
+        // Act
+        Statistic statistic = applicationService.getMontlyUpdate(currency);
+
+        // Assert
+        Assertions.assertEquals("RON to EUR", statistic.getTitle());
+        Assertions.assertEquals("Montly statistic", statistic.getDescription());
+        Assertions.assertEquals((float) 0.2, statistic.getStatistic());
     }
 
    @Test
